@@ -38,11 +38,3 @@ cacheSolve <- function(x, ...) {
 	x$setinv(inv) 			#Store inverse in cache
 	inv 					#return the inverse
 }
-
-#For testing:
-
-#x <- makeCacheMatrix()
-#x$set(c(1,2,3,4))
-#x$get()
-#cacheSolve(x)
-#cacheSolve(x) #Reads from cache
