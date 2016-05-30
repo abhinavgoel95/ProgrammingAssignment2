@@ -1,15 +1,49 @@
 ## Put comments here that give an overall description of what your
 ## functions do
+##The functions are used to depict the use of Lexical Scoping in R.
 
 ## Write a short comment describing this function
+##makeCacheMatrix is a function which returns a list of functions.
+##These functions are: set, get, setinv and getinv
 
 makeCacheMatrix <- function(x = matrix()) {
-
+	matinv <- NULL
+	set <- function(y) 							#Enter a vector to build a matrix
+	{
+		len <<- length(y)/2
+		x <<- matrix(y,len,len) 				#Store the matrix in 'x' in cache
+		matinv <<- NULL
+	}
+	get <- function() 	matrix(x,len,len) 		#Retrieve the matrix
+	setinv <- function(inv)	matinv <<- inv 		#Store the inverse in cache
+	getinv <- function() matinv 				#Retirive the inverse from cache.
+	list(set = set, get = get , setinv = setinv, getinv = getinv)
+												#Return a list of functions
 }
 
 
 ## Write a short comment describing this function
+##cacheSolve is for finding the inverse of the matrix (defined in x$set()).
+##It will check if the inverse exits in the cache. If not it will find the inverse.
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+     inv <- x$getinv() 		#Read inverse from cache
+	if(! is.null(inv)) 		#Check if inverse exists in cache
+	{
+		print("Available in cache");
+		matinv <<- inv
+		return(matinv)
+	}
+	mat <- x$get() 			#Obtain the matrix
+	inv <- solve(mat,...) 	#Find the inverse
+	x$setinv(inv) 			#Store inverse in cache
+	inv 					#return the inverse
 }
+
+#For testing:
+
+#x <- makeCacheMatrix()
+#x$set(c(1,2,3,4))
+#x$get()
+#cacheSolve(x)
+#cacheSolve(x) #Reads from cache
