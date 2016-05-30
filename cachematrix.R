@@ -8,13 +8,12 @@
 
 makeCacheMatrix <- function(x = matrix()) {
 	matinv <- NULL
-	set <- function(y) 							#Enter a vector to build a matrix
+	set <- function(y)
 	{
-		len <<- length(y)/2
-		x <<- matrix(y,len,len) 				#Store the matrix in 'x' in cache
-		matinv <<- NULL
-	}
-	get <- function() 	matrix(x,len,len) 		#Retrieve the matrix
+      		x <<- y
+      		matinv <<- NULL
+    	}
+	get <- function() 	x 			#Retrieve the matrix
 	setinv <- function(inv)	matinv <<- inv 		#Store the inverse in cache
 	getinv <- function() matinv 				#Retirive the inverse from cache.
 	list(set = set, get = get , setinv = setinv, getinv = getinv)
